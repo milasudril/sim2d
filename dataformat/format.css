@@ -1,0 +1,60 @@
+h1,h2,h3,h4
+	{
+	font-family:"Comic Sans MS";font-weight:bold;
+	margin-bottom:0.3em;
+	}
+
+h5
+    {
+    font-family:"Comic Sans MS";display:inline;font-weight: bold
+    }
+
+li,p,td,h5{font-family:Verdana;}
+	
+h1+p,h2+p,h3+p
+	{
+	text-indent:0em;
+	}
+
+ol+p
+    {
+     text-indent:0em; 
+    }
+
+p
+	{
+	font-family:Verdana;
+	margin-top:0em;
+	text-indent:2em;
+	margin-bottom:0em;
+	}
+
+li,td,th
+    {margin-bottom:0.3em;}
+
+td,th{vertical-align:top;}
+
+p,td,li,th,h5,code{font-size:1em;}
+
+
+code.type{font-weight:bold;}
+
+table{margin-left:2em;margin-top:0.4em}
+
+h1{counter-reset:section}
+
+h2{counter-reset:subsection}
+
+h3{counter-reset:subsubsection}
+
+h2:before{counter-increment:section;content: counter(section) " "}
+
+h3:before{counter-increment:subsection;content: counter(section) "." counter(subsection) " ";}
+
+h4:before{counter-increment:subsection;content: counter(section) "." counter(subsection) "." counter(subsubsection);}
+
+@media print
+	{
+	h1,h2,h3,h4,h5,p,td,li{font-family:"CMU Serif"}
+	table,ul,ol{orphans:4}
+	}

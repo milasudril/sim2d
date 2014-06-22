@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="format.xsl" type="text/xsl"?>
+<fileformat>
+	<name>Sim2d Simulation State File</name>
+	<status>Draft</status>
+	<description>
+		<p>The Sim2d application uses a simulation state file is used to store the current state of a simulation so the simulation can continue at a later moment. A simulation state file stores information about the model chosen, together with the current parameters. It also stores the simulation state matrix in a lossless manner.</p>
+		
+		<p>Simulation state files are primarly intended to use with this implementation of the Sim2d application. This means that the format may change in the future. To avoid compatibility problems, it is best to not use this format for other purpose than interfacing with Sim2d.</p>
+	</description>
+	<data_encoding>
+		<bits>
+			<field><name>binary</name></field>
+			<field><name>little endian</name></field>
+		</bits>
+		<comments>
+			<p>Since a simulation state file contains mostly numerical data, a binary format is appropriate. Little endian has been chosen since it is the native format of most PC:s. In a future release, data compression such as "deflate" may be added to the file format.</p>
+		</comments>
+	</data_encoding>
+	<chunks>
+		<comments>
+			<p>The file format is derived from the BIGCHUNK format. In this format, all chunks begins with a chunk header containing a chunk id followed by the chunk size. The chunk size does not include the size of the chunk header. A simulations state file may contain other chunks that are not listed in this specification. In that case, a program that does not understand that chunk may skip it.</p>
+		</comments>
+		<ordered>yes</ordered>
+		<chunk>
+			<name>BigchunkHeader</name>
+			<fields>
+				<field><type>uint64_t</type><name>magic_number</name><content>The magic number of the file. In ASCII, this value reads <code>BIGCHUNK</code></content></field>
+				<field><type>uint64_t</type><name>size</name><content>The size of the entire file. If the file is contained insied another file, this field comtains the size of the simulation state file only. If this field equals <code>(uint64_t)-1</code>, it is assumed that the data stream continues to EOF.</content></field>
+			</fields>
+			<description/>
+		</chunk>
+		<chunk>
+			<name>Metadata</name>
+			<fields>
+				<field><type>uint64_t</type><name>chunk_id</name><content>The chunk id. In ASCII, this value reads <code>SIM2DMET</code></content></field>
+				<field><type>uint64_t</type><name>chunk_size</name><content>The size of this chunk. In current version, this value is 0.</content></field>
+			</fields>
+		</chunk>
+		<chunk>
+			<name>SimulationSetup</name>
+			<fields>
+				<field><type>uint64_t</type><name>chunk_id</name><content>The id of this chunk. In ASCII, this value reads <code>SIMSETUP</code></content></field>
+				<field><type>uint64_t</type><name>chunk_size</name><content>The size of this chunk. This value equals 48.</content></field>
+				<field><type>uint64_t</type><name>n_iter_tot</name><content>The total number of iterations to be done</content></field>
+				<field><type>uint64_t</type><name>framecounter</name><content>The  number of iterations completed</content></field>
+				<field><type>uint32_t</type><name>domain_width</name><content>The number of cells in <var>x</var> direction</content></field>
+				<field><type>uint32_t</type><name>domain_height</name><content>The number of cells in <var>y</var> direction</content></field>
+				<field><type>uint32_t</type><name>seed</name><content>The seed used to initiate any random number generators</content></field>
+				<field><type>uint32_t</type><name>n_threads</name><content>The number of computation threads used for the simulation</content></field>
+				<field><type>uint32_t</type><name>ui_refreshrate</name><content>The display refresh rate</content></field>
+				<field><type>uint32_t[3]</type><name>resereved</name><content>Reserved for future use</content></field>
+			</fields>
+			<description/>
+		</chunk>
+		<chunk>
+			<name>ModelInformation</name>
+			<fields>
+				<field><type>uint64_t</type><name>chunk_id</name><content>The id of this chunk. In ASCII, this value reads <code>MODINFO\0</code>.</content></field>
+				<field><type>uint64_t</type><name>chunk_size</name><content>The size of this chunk. This value equals 8+2*<code>model_source_length</code>.</content></field>
+				<field><type>uint32_t</type><name>version</name><content>Chunk version. In a future release, the reference may be replaced by a real copy of the model source code. This document describes version 0.</content></field>
+				<field><type>uint32_t</type><name>model_source_length</name><content>The number of elements in the name of the file conaining the model code.</content></field>
+				<field><type>uint16_t[]</type><name>model_source</name><content>The name of the file containing the model code. The string is encoded in UTF-16. </content></field>
+			</fields>
+			<description>
+				<p>This chunk contains information about the model used for the simulation.</p>
+			</description>
+		</chunk>
+		<chunk>
+			<name>ModelParameters</name>
+			<fields>
+				<field><type>uint64_t</type><name>chunk_size</name><content>The size of this chunk. This value equals <var>N</var>, where <var>N</var> is defined by the current model.</content></field>
+				<field><type>uint64_t</type><name>chunk_id</name><content>The id of this chunk. In ASCII, this value reads <code>MODPARAM</code>.</content></field>
+				<field><type>uint8_t[]</type><name>params</name><content>The model parameters</content></field>
+			</fields>
+			<description>
+				<p>Model parameters are values that control the behaviour of the system described by the model. Since different models takes different parameters, the content of this chunk is defined by the model code.</p>
+			</description>
+		</chunk>
+		<chunk>
+			<name>GlobalState</name>
+			<fields>
+				<field><type>uint64_t</type><name>chunk_id</name><content>The id of this chunk. In ASCII, this value reads <code>STATEGLO</code>.</content></field>
+				<field><type>uint64_t</type><name>chunk_size</name><content>The size of this chunk. This value equals (<code>simulation_info.n_threads</code>+1)*<var>N</var>, where <var>N</var> is defined by the current model.</content></field>
+				<field><type>uint8_t[]</type><name>state_vars</name><content>The state variables</content></field>
+			</fields>
+			<description>
+				<p>The block state collects all state variables that only depend on time. Since different models contains different state variables, the content of this chunk is defined by the model code.</p>
+			</description>
+		</chunk>
+		<chunk>
+			<name>CellState</name>
+			<fields>
+				<field><type>uint64_t</type><name>chunk_id</name><content>The id of this chunk. In ASCII, this value reads <code>STATECEL</code>.</content></field>
+				<field><type>uint64_t</type><name>chunk_size</name><content>The size of this chunk. This value equals 4*<var>N</var>*<code>simulation_info.domain_width</code>*<code>simulation_info.domain_height</code>, where <var>N</var> is the number of spatially dependent state variables in the model.</content></field>
+				<field><type>ValueType[]</type><name>state_vars</name><content>The state variables</content></field>
+			</fields>
+			<description>
+				<p>This chunk contains the current values for the spatially dependent state variables.</p>
+			</description>
+		</chunk>
+		<chunk>
+			<name>End</name>
+			<fields>
+				<field><type>uint64_t</type><name>chunk_id</name><content>The id of this chunk. In ASCII this value reads <code>END</code>.</content></field>
+				<field><type>uint64_t</type><name>chunk_size</name><content>The size of this chunk. This value equals 0.</content></field>
+			</fields>
+			<description>
+				<p>End marker</p>
+			</description>
+		</chunk>
+	</chunks>
+</fileformat>

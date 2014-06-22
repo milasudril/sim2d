@@ -1,0 +1,44 @@
+<html>
+<head></head>
+<body>
+<script type="text/javascript">
+
+function queryGet(str)
+	{
+	var args=str.split("&");
+	var ret={};
+	for(var k=0;k<args.length;++k)
+		{
+		var temp=args[k].split("=");
+		ret[unescape(temp[0])]=unescape(temp[1]);
+		}
+	return ret;
+	}
+	
+var qstring=location.search.toString();
+var query=queryGet(qstring.substring(1,qstring.length));
+
+var req=new XMLHttpRequest();
+req.open("GET","index.xml",false);
+req.send();
+
+var db=req.responseXML.documentElement.getElementsByTagName("compound");
+var found=0;
+for(var k=0;k<db.length;++k)
+	{
+	var str_current=db[k].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+	if(str_current.indexOf(query["namestring"]) > -1) 
+		{
+		document.write(db[k].getAttribute("refid"));
+		location.replace(db[k].getAttribute("refid")+".html");
+		found=1;
+		break;
+		}
+	}
+
+if(!found)
+	{history.back();}
+
+</script>
+</body>
+</html>
