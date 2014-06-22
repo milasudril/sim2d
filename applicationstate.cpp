@@ -61,6 +61,7 @@ void Sim2d::ApplicationState::load(const Herbs::Path& filename
 			loader_new.reset( new ModelLoader(reader) );
 			status|=4;
 			}
+		reader.skip();
 		}
 	if(status!=0x7)
 		{throw Herbs::ExceptionMissing(___FILE__,__LINE__);}
@@ -78,6 +79,7 @@ void Sim2d::ApplicationState::load(const Herbs::Path& filename
 	
 	do
 		{
+		fflush(stdout);
 		if(header_name=="END")
 			{break;}
 		else

@@ -48,8 +48,8 @@ void Sim2d::Test_ModelState::process(uintmax_t framecounter
 			auto v_u=ptr_src[k+offset][l].u;
 			auto v_v=ptr_src[k+offset][l].v;
 			
-			ptr_dest[k][l].u=v_u + 0.06125*( d*l_u - v_u*v_v*v_v + F*(1-v_u) );
-			ptr_dest[k][l].v=v_v + 0.06125*( l_v + v_u*v_v*v_v - (F+ka)*v_v );
+			ptr_dest[k][l].u=v_u + ( d*l_u - v_u*v_v*v_v + F*(1-v_u) )/32.0f;
+			ptr_dest[k][l].v=v_v + ( l_v + v_u*v_v*v_v - (F+ka)*v_v )/32.0f;
 			
 			}
 		ptr_dest[k][0]=ptr_dest[k][1];
