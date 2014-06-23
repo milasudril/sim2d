@@ -6,7 +6,7 @@ target[name[model.o] type[object]]
 #include "modelinfo.h"
 #include "modelsetup.h"
 
-Sim2d::Model::Model(ModelInfo& model):model_loaded(model)
+Sim2d::Model::Model(ModelInfo& model):model_loaded(model),n_vars(0)
 	{
 	auto ptr_varname=model_loaded.varnamesGet();
 	while(*ptr_varname!=nullptr)

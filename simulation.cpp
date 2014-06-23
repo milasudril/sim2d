@@ -107,7 +107,8 @@ void Sim2d::Simulation::stateCellLoad(ChunkIO::Reader& reader)
 		{
 		reader.dataRead(buffers[0].rowGet(0),stateCellSizeGet());
 		buffers[1]=buffers[0];
-		pixelsUpload();
+		if(m_view!=nullptr)
+			{pixelsUpload();}
 		}
 	}
 	
@@ -157,7 +158,7 @@ Sim2d::Simulation::~Simulation()
 void Sim2d::Simulation::varindexSet(unsigned int varindex)
 	{
 	varindex_sel=varindex;
-	if(m_stop)
+	if(m_stop && m_view!=nullptr)
 		{pixelsUpload();}
 	}
 	
@@ -236,9 +237,12 @@ int Sim2d::Simulation::run()
 		}
 	
 	m_stop=1;
-	
-	pixelsUpload();
-	m_view->counterUpdate(framecounter);
+
+	if(m_view!=nullptr)
+		{
+		pixelsUpload();
+		m_view->counterUpdate(framecounter);
+		}
 	if(framecounter==n_frames_max)
 		{return STATUS_OK;}
 	return STATUS_ABORT;
@@ -268,7 +272,8 @@ void Sim2d::Simulation::dataSet(const Vector::MatrixStorage<ValueType>& data)
 					};
 				m_model.pixelsPush(inblock,outblock,varindex_sel);
 				}
-			pixelsUpload();
+			if(m_view!=nullptr)
+				{pixelsUpload();}
 			}
 		}
 	}
