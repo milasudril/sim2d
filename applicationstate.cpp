@@ -45,11 +45,7 @@ void Sim2d::ApplicationState::load(const Herbs::Path& filename
 	SimulationSetup simsetup_new;
 	std::unique_ptr<ModelLoader> loader_new;
 	while(reader.headerRead(header_name))
-		{
-		if(header_name=="END" || header_name=="STATEGLO" 
-			|| header_name=="STATECEL")
-			{break;	}
-		else	
+		{	
 		if(header_name=="SIMSETUP")
 			{
 			simsetup_new.load(reader);
@@ -61,25 +57,28 @@ void Sim2d::ApplicationState::load(const Herbs::Path& filename
 			loader_new.reset( new ModelLoader(reader) );
 			status|=4;
 			}
+		else
+			{break;}
 		reader.skip();
 		}
 	if(status!=0x7)
 		{throw Herbs::ExceptionMissing(___FILE__,__LINE__);}
 	
+	simulationSetupUpdate(simsetup_new);
+	
 		{
-		simulationSetupUpdate(simsetup_new);
 		auto model_new=new Model(loader_new->modelInfoGet());
 		modelUnload();
 		m_loader=loader_new.get();
 		loader_new.release();
 		m_model=model_new;
-		
-		simulationCreate(logwriter,view,ui_appstate);
 		}
+	
+	simulationCreate(logwriter,view,ui_appstate);
 	
 	do
 		{
-		fflush(stdout);
+		
 		if(header_name=="END")
 			{break;}
 		else
@@ -88,6 +87,11 @@ void Sim2d::ApplicationState::load(const Herbs::Path& filename
 		else
 		if(header_name=="STATECEL")
 			{m_simulation->stateCellLoad(reader);}
+		else
+		if(header_name=="MODPARAM")
+			{
+			m_model->setupGet().load(reader);
+			}
 		
 		reader.skip();
 		}
