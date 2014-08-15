@@ -1,0 +1,31 @@
+# generated from /usr/local/umbrello/share/apps/umbrello/layouts/class-export.desktop
+digraph G {
+	graph [splines=polyline,rankdir=TB,outputorder=nodesfirst,ranksep=0.5,nodesep=0.5];
+"KtHQ0zpvJF13" [shape=box,label="Sim2d::Bufferinfo\n+ buffer_init : const ValueType*\n+ buffer_next : ValueType*\n+ scanline_start : uint32_t\n+ scanline_end : uint32_t\n+ swap()",width="3.11111",height="1.25"];
+"63xBxnlSgQMg" [shape=box,label="Sim2d::DatablockProcessor\n- ready : Herbs::EventAuto\n- start : Herbs::EventAuto\n- buffers : Bufferinfo\n- m_model : ModelState*\n- m_stop : uint32_t\n+ DatablockProcessor(lw : Herbs::LogWriter&, model : const Model&, seed : uint32_t, bi : const Bufferinfo&)\n+ run() : int\n+ wait()\n+ frameNext()\n+ stop()\n+ ~ DatablockProcessor()",width="10.1667",height="2.5"];
+"P1VIeCWA8Ah1" [shape=box,label="Sim2d::ModelState\n+ process(buffers : const Bufferinfo&)\n+ destroy()\n+ ~ ModelState()",width="3.69444",height="0.930556"];
+"SkRQ7ti1gil7" [shape=box,label="Sim2d::ModelLoader\n- model : ModelInfo*\n+ ModelLoader(path : const Herbs::Path&)\n+ ~ ModelLoader()\n+ filenameGet() : const Herbs::Path&\n+ modelGet() : ModelInfo&",width="4.08333",height="1.25"];
+"LB8zDunMMwo5" [shape=box,label="Sim2d::Model\n- model_loaded : ModelInfo&\n- model_setup : ModelSetup*\n- n_vars : size_t\n+ Model(model : ModelInfo&)\n+ ~ Model()\n+ nVarsGet() : unsigned int\n+ varnamesGet() : const char_t* const*\n+ nameGet() : const char_t*\n+ stateCreate(seed : uint32_t) : ModelState*\n+ setupGet() : ModelSetup&",width="4.40278",height="2.29167"];
+"cx2VYZ6Gpm2a" [shape=box,label="Sim2d::Simulation\n- buffer_b : Vector::MatrixStorage< ValueType >\n- buffer_init : Vector::MatrixStorage< ValueType >\n- rand_seeder : Sim2d::ModelLoader::RandBootstrap\n- processors : Herbs::ArrayFixedsize< DatablockProcessor >\n- m_blitter : Gui::Blitter*\n- n_threads : uint32_t\n- m_stop : uint32_t\n+ Simulation(log : Herbs::LogWriter&, setup : const SimulationSetup&, model : const Model&, blitter : Gui::Blitter*)\n+ run() : int\n+ stop()\n+ blitterGet() : Gui::Blitter*\n+ ~ Simulation()",width="10.7917",height="2.70833"];
+"hUSPPEsPLZah" [shape=box,label="Sim2d::SimulationSetup\n+ domain_width : uint32_t\n+ domain_height : uint32_t\n+ seed : uint32_t\n+ n_threads : uint32_t\n+ ui_refreshrate : uint32_t\n+ SimulationSetup()\n+ validate()\n+ titleGet() : const char_t*\n+ paraminfoGet() : Herbs::ListPacked",width="3.58333",height="2.08333"];
+"Ht2uTPtp3IFi" [shape=box,label="ModelSetup\n+ destroy()\n+ ~ ModelSetup()",width="2.08333",height="0.722222"];
+"Zk3pFH00pKZz" [shape=box,label="Gui::Blitter",width="1.23611",height="0.402778"];
+"EQTnl3Ta8V8H" [shape=box,label="Config::Paramdescriptor",width="1.83333",height="0.402778"];
+"FgmpZhaRzpYg" [shape=box,label="Sim2d::ApplicationState\n- m_loader : ModelLoader\n- m_model : Model\n- m_simulation : Simulation\n- m_params : Config::Paramset\n+ loaderSet(loader : Sim2d::ModelLoader&)\n+ simulationSet(simulation : Sim2d::Simulation&)",width="4.61111",height="1.45833"];
+"h4Xg2yqs0FVi" [shape=box,label="Config::Paramset",width="1.88889",height="0.402778"];
+"F31YWtw3iiFN" [shape=box,label="ModelInfo\n+ destroy()\n+ nameGet() : const char_t*\n+ varnamesGet() : const char_t* const*\n+ setupCreate() : ModelSetup*\n+ stateCreate(setup : const ModelSetup&, seed : uint32_t) : ModelState*\n+ ~ ModelInfo()",width="7.02778",height="1.55556"];
+"63xBxnlSgQMg" -> "KtHQ0zpvJF13" [weight=0.001,arrowhead=diamonds,label="",headlabel="+buffers  ",taillabel="  "];
+"63xBxnlSgQMg" -> "P1VIeCWA8Ah1" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+m_model  0..1",taillabel="  "];
+"LB8zDunMMwo5" -> "Ht2uTPtp3IFi" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+model_setup  0..1",taillabel="  "];
+"cx2VYZ6Gpm2a" -> "63xBxnlSgQMg" [weight=0.001,arrowhead=diamonds,label="",headlabel="+processors  n_threads",taillabel="  "];
+"cx2VYZ6Gpm2a" -> "Zk3pFH00pKZz" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+m_blitter  0..1",taillabel="  "];
+"EQTnl3Ta8V8H" -> "Ht2uTPtp3IFi" [weight=1.0,arrowtail=onormal,dir=back,label="",headlabel="  ",taillabel="  "];
+"EQTnl3Ta8V8H" -> "hUSPPEsPLZah" [weight=1.0,arrowtail=onormal,dir=back,label="",headlabel="  ",taillabel="  "];
+"FgmpZhaRzpYg" -> "SkRQ7ti1gil7" [weight=0.001,arrowhead=diamonds,label="",headlabel="+m_loader  ",taillabel="  "];
+"FgmpZhaRzpYg" -> "LB8zDunMMwo5" [weight=0.001,arrowhead=diamonds,label="",headlabel="+m_model  ",taillabel="  "];
+"FgmpZhaRzpYg" -> "cx2VYZ6Gpm2a" [weight=0.001,arrowhead=diamonds,label="",headlabel="+m_simulation  ",taillabel="  "];
+"FgmpZhaRzpYg" -> "h4Xg2yqs0FVi" [weight=0.001,arrowhead=diamonds,label="",headlabel="+m_params  ",taillabel="  "];
+"SkRQ7ti1gil7" -> "F31YWtw3iiFN" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+model  0..1",taillabel="  "];
+"LB8zDunMMwo5" -> "F31YWtw3iiFN" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+model_loaded  0..1",taillabel="  "];
+
+}

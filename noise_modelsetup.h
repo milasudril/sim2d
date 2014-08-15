@@ -22,8 +22,8 @@ namespace Sim2d
 			Herbs::ListPacked paraminfoGet();
 			void destroy();
 			
-			bool load(ChunkIO::Reader& source);
-			bool store(ChunkIO::Writer& dest) const;
+			bool load(DataReader& source);
+			bool store(DataWriter& dest) const;
 			size_t chunkSizeGet() const
 				{return 0;}
 		};

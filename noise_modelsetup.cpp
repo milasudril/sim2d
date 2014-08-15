@@ -3,8 +3,8 @@ target[name[noise_modelsetup.o] type[object]]
 #endif
 
 #include "noise_modelsetup.h"
-#include <chunkio/reader.h>
-#include <chunkio/writer.h>
+#include "datareader.h"
+#include "datawriter.h"
 #include <config/param_valueraw_info.h>
 
 const char_t* Sim2d::Noise_ModelSetup::titleGet() const
@@ -30,12 +30,12 @@ Herbs::ListPacked Sim2d::Noise_ModelSetup::paraminfoGet()
 void Sim2d::Noise_ModelSetup::destroy()
 	{delete this;}
 
-bool Sim2d::Noise_ModelSetup::load(ChunkIO::Reader& source)
+bool Sim2d::Noise_ModelSetup::load(DataReader& source)
 	{
 	return 1;
 	}
 
-bool Sim2d::Noise_ModelSetup::store(ChunkIO::Writer& dest) const
+bool Sim2d::Noise_ModelSetup::store(DataWriter& dest) const
 	{
 	return 1;
 	}

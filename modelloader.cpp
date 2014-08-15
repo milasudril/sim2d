@@ -5,8 +5,8 @@ target[name[modelloader.o] type[object]]
 #include "modelloader.h"
 #include "modelinfo.h"
 #include "modelinfofactory.h"
-#include <chunkio/reader.h>
-#include <chunkio/writer.h>
+#include "datareader.h"
+#include "datawriter.h"
 #include <herbs/module/dllentry.h>
 #include <herbs/module/module.h>
 
@@ -17,7 +17,7 @@ Sim2d::ModelLoader::ModelLoader(const Herbs::Path& path)
 	load(path);
 	}
 	
-Sim2d::ModelLoader::ModelLoader(ChunkIO::Reader& reader)
+Sim2d::ModelLoader::ModelLoader(DataReader& reader)
 	{
 	uint32_t val;
 	reader.dataRead(&val,sizeof(val));
@@ -55,7 +55,7 @@ Sim2d::ModelLoader::~ModelLoader()
 	model_info->destroy();
 	}
 
-void Sim2d::ModelLoader::store(ChunkIO::Writer& writer) const
+void Sim2d::ModelLoader::store(DataWriter& writer) const
 	{
 	Herbs::String str=filenameGet();
 	uint32_t val=0;

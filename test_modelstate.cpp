@@ -72,8 +72,8 @@ void Sim2d::Test_ModelState::process(uintmax_t framecounter
 void Sim2d::Test_ModelState::destroy()
 	{delete this;}
 	
-bool Sim2d::Test_ModelState::stateGlobalLoad(ChunkIO::Reader& source)
+bool Sim2d::Test_ModelState::stateGlobalLoad(DataReader& source)
 	{return 1;}
 
-bool Sim2d::Test_ModelState::stateGlobalStore(ChunkIO::Writer& dest) const
+bool Sim2d::Test_ModelState::stateGlobalStore(DataWriter& dest) const
 	{return 1;}

@@ -6,8 +6,8 @@ target[name[noise_modelstate.o] type[object]]
 #include "noise_modelsetup.h"
 #include "bufferinfo.h"
 
-#include <chunkio/reader.h>
-#include <chunkio/writer.h>
+#include "datareader.h"
+#include "datawriter.h"
 
 Sim2d::Noise_ModelState::Noise_ModelState(const Noise_ModelSetup& params
 	,uint32_t seed):
@@ -54,13 +54,13 @@ void Sim2d::Noise_ModelState::process(uintmax_t framecounter
 void Sim2d::Noise_ModelState::destroy()
 	{delete this;}
 	
-bool Sim2d::Noise_ModelState::stateGlobalLoad(ChunkIO::Reader& source)
+bool Sim2d::Noise_ModelState::stateGlobalLoad(DataReader& source)
 	{
 	return source.dataRead(&randgen,stateGlobalSizeGet())
 		==stateGlobalSizeGet();
 	}
 
-bool Sim2d::Noise_ModelState::stateGlobalStore(ChunkIO::Writer& dest) const
+bool Sim2d::Noise_ModelState::stateGlobalStore(DataWriter& dest) const
 	{
 	return dest.dataWrite(&randgen,stateGlobalSizeGet())
 		==stateGlobalSizeGet();

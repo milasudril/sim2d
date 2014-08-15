@@ -1,0 +1,29 @@
+# generated from /usr/local/umbrello/share/apps/umbrello/layouts/class-export.desktop
+digraph G {
+	graph [splines=polyline,rankdir=TB,outputorder=nodesfirst,ranksep=0.5,nodesep=0.5];
+"0bT3lgFBKNwC" [shape=box,label="Sim2d::SimulationSetup\n+ domain_width : uint32_t\n+ domain_height : uint32_t\n+ seed : uint32_t\n+ n_threads : uint32_t\n+ ui_refreshrate : uint32_t\n+ SimulationSetup()\n+ validate()",width="2.63889",height="1.66667"];
+"9Y2SSXpU43Ln" [shape=box,label="Sim2d::ApplicationState\n+ ApplicationState(log : Herbs::LogWriter&)\n+ ~ ApplicationState()\n+ modelLoad(path_model : const Herbs::Path&)\n+ modelFree()\n+ modelNameGet() : const char_t*\n+ modelPathGet() : const Herbs::Path*\n+ simulationCreate()\n+ simulationDestroy()\n+ simulationRun()\n+ simulationStop()\n+ setupUpdate(setup_new : const SimulationSetup&)\n+ setupGet() : SimulationSetup",width="5.06944",height="2.80556"];
+"Iy36ELHhqmbp" [shape=box,label="Sim2d::Bufferinfo\n+ buffer_init : const ValueType*\n+ buffer_next : ValueType*\n+ scanline_start : uint32_t\n+ scanline_end : uint32_t\n+ swap()",width="3.11111",height="1.25"];
+"vClvMID5y2o2" [shape=box,label="Sim2d::DatablockProcessor\n+ DatablockProcessor(lw : Herbs::LogWriter&, mi : const ModelInfo&, setup : const ModelSetup&, bi : const Bufferinfo&)\n+ run() : int\n+ wait()\n+ frameNext()\n+ stop()\n+ ~ DatablockProcessor()",width="11.2917",height="1.55556"];
+"YkIWDUO2vUuL" [shape=box,label="Sim2d::HostGui\n+ HostGui(log : Herbs::LogWriter&,  : Herbs::Directory)\n+ destroy()",width="5.23611",height="0.722222"];
+"m3EQbylDnuI6" [shape=box,label="Sim2d::Model\n+ Model(path : const Herbs::Path&)\n+ modelInfoGet() : const ModelInfo&\n+ pathGet() : const Herbs::Path&\n+ nameGet() : const char_t*\n+ ~ Model()",width="3.55556",height="1.34722"];
+"k5JiIIGeYirU" [shape=box,label="Sim2d::ModelInfo\n+ ModelInfo(name : const char_t*, n_vars : unsigned int)\n+ nameGet() : const char_t*\n+ nVarsGet() : unsigned int\n+ modelSetupCreate() : ModelSetup*\n+ modelStateCreate(setup : const ModelSetup&) : ModelState*\n+ paraminfoGet(params : Herbs::Array< const Config :: Paraminfo * >, setup : ModelSetup&)\n+ destroy()\n+ ~ ModelInfo()",width="8.86111",height="1.97222"];
+"4a7LAXxm2dWo" [shape=box,label="Sim2d::ModelSetup\n+ destroy()\n+ ~ ModelSetup()",width="2.08333",height="0.722222"];
+"U9enJBk6CNa0" [shape=box,label="Sim2d::ModelState\n+ process(buffers : const Bufferinfo&)\n+ destroy()\n+ ~ ModelState()",width="3.69444",height="0.930556"];
+"o4NJzYeeGXIk" [shape=box,label="Sim2d::Simulation\n+ Simulation(log : Herbs::LogWriter&, setup : const SimulationSetup&, mi : const ModelInfo&)\n+ run() : int\n+ stop()\n+ ~ Simulation()",width="8.80556",height="1.13889"];
+"OSNSjmSkHLNg" [shape=box,label="Sim2d::SimulationParams\n+ SimulationParams(setup : SimulationSetup&)\n+ paraminfoGet() : Herbs::Array< const Config :: Paraminfo * >",width="6.02778",height="0.722222"];
+"ppaej5oe4lvX" [shape=box,label="Sim2d::UIMainControl\n+ init()\n+ create(gui_obj : Gui::Gui&, style_0 : uint32_t, style_1 : uint32_t, parent : Window*, state : ApplicationState&) : UIMainControl*\n+ handlerLoader(event_status : uint32_t, command_id : LoaderCommand)\n+ handlerSimstate(event_status : uint32_t, command_id : uint32_t)\n+ handlerSetup(event_status : uint32_t, command_id : uint32_t)\n+ titleUpdate()\n+ UIMainControl(gui_obj : Gui::Gui&, style_0 : uint32_t, style_1 : uint32_t, parent : Window*, state : ApplicationState&)\n+ onEvent(event_type : uint32_t, param_0 : size_t, param_1 : size_t) : size_t\n+ onCommand(event_status : uint32_t, command_id : uint32_t, source : Window&) : size_t",width="12.2917",height="2.18056"];
+"9Y2SSXpU43Ln" -> "0bT3lgFBKNwC" [weight=0.001,arrowhead=diamonds,label="",headlabel="+setup  ",taillabel="  "];
+"vClvMID5y2o2" -> "Iy36ELHhqmbp" [weight=0.001,arrowhead=diamonds,label="",headlabel="+buffers  ",taillabel="  "];
+"YkIWDUO2vUuL" -> "9Y2SSXpU43Ln" [weight=0.001,arrowhead=diamonds,label="",headlabel="+app_state  ",taillabel="  "];
+"9Y2SSXpU43Ln" -> "m3EQbylDnuI6" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+model  0..1",taillabel="  "];
+"m3EQbylDnuI6" -> "k5JiIIGeYirU" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+model_loaded  0..1",taillabel="  "];
+"vClvMID5y2o2" -> "U9enJBk6CNa0" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+m_model  0..1",taillabel="  "];
+"vClvMID5y2o2" -> "o4NJzYeeGXIk" [weight=0.001,arrowtail=vee,style=dashed,dir=back,label="",headlabel="  ",taillabel="  "];
+"o4NJzYeeGXIk" -> "4a7LAXxm2dWo" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+mod_setup  0..1",taillabel="  "];
+"9Y2SSXpU43Ln" -> "o4NJzYeeGXIk" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+simstate  0..1",taillabel="  "];
+"ppaej5oe4lvX" -> "9Y2SSXpU43Ln" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+app_state  0..1",taillabel="  "];
+"ppaej5oe4lvX" -> "0bT3lgFBKNwC" [weight=0.001,arrowhead=diamonds,label="",headlabel="+setup_temp  ",taillabel="  "];
+"YkIWDUO2vUuL" -> "ppaej5oe4lvX" [weight=0.001,arrowtail=odiamond,dir=back,label="",headlabel="+mainwin  0..1",taillabel="  "];
+
+}

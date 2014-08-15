@@ -3,10 +3,10 @@ target[name[simulationsetup.o] type[object]]
 #endif
 
 #include "simulationsetup.h"
+#include "datawriter.h"
+#include "datareader.h"
 #include <config/param_valueraw_info.h>
 #include <config/param_group_info.h>
-#include <chunkio/writer.h>
-#include <chunkio/reader.h>
 #include <herbs/exception/exception.h>
 #include <herbs/thread/thread.h>
 #include <herbs/logmessage/logmessage.h>
@@ -92,12 +92,12 @@ const char_t* Sim2d::SimulationSetup::titleGet() const
 	return STR("Simuleringsinställningar");
 	}
 
-void Sim2d::SimulationSetup::store(ChunkIO::Writer& dest)
+void Sim2d::SimulationSetup::store(DataWriter& dest)
 	{
 	dest.dataWrite(&blob,chunkSizeGet());
 	}
 	
-void Sim2d::SimulationSetup::load(ChunkIO::Reader& source)
+void Sim2d::SimulationSetup::load(DataReader& source)
 	{
 	source.dataRead(&blob,chunkSizeGet());
 	}

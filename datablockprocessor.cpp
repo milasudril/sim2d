@@ -39,12 +39,12 @@ size_t Sim2d::DatablockProcessor::stateGlobalSizeGet() const
 	return m_model->stateGlobalSizeGet();
 	}
 	
-void Sim2d::DatablockProcessor::stateGlobalStore(ChunkIO::Writer& writer) const
+void Sim2d::DatablockProcessor::stateGlobalStore(DataWriter& writer) const
 	{
 	m_model->stateGlobalStore(writer);
 	}
 
-void Sim2d::DatablockProcessor::stateGlobalLoad(ChunkIO::Reader& reader)
+void Sim2d::DatablockProcessor::stateGlobalLoad(DataReader& reader)
 	{
 	m_model->stateGlobalLoad(reader);
 	}

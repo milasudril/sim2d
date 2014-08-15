@@ -8,12 +8,6 @@ dependency[modelloader.o]
 
 #include <memory>
 
-namespace ChunkIO
-	{
-	class Reader;
-	class Writer;
-	}
-
 namespace Herbs
 	{
 	class Module;
@@ -23,15 +17,18 @@ namespace Herbs
 namespace Sim2d
 	{
 	class ModelInfo;
+	class DataReader;
+	class DataWriter;
+	
 	class ModelLoader
 		{
 		public:
-			ModelLoader(ChunkIO::Reader& reader);
+			ModelLoader(DataReader& reader);
 			ModelLoader(const Herbs::Path& path);
 			
 			~ModelLoader();
 			
-			void store(ChunkIO::Writer& writer) const;
+			void store(DataWriter& writer) const;
 			
 			const Herbs::Path& filenameGet() const;
 			

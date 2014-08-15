@@ -7,22 +7,18 @@ target[name[modelsetup.h] type[include]]
 
 #include <config/paramdescriptor.h>
 
-namespace ChunkIO
-	{
-	class Reader;
-	class Writer;
-	}
-
 namespace Sim2d
-	{	
+	{
+	class DataReader;
+	class DataWriter;
 	class ModelSetup:public Config::Paramdescriptor
 		{
 		public:
 			virtual void destroy()=0;
 			virtual ~ModelSetup(){}
 			virtual size_t chunkSizeGet() const=0;
-			virtual bool load(ChunkIO::Reader& source)=0;
-			virtual bool store(ChunkIO::Writer& dest) const=0;
+			virtual bool load(DataReader& source)=0;
+			virtual bool store(DataWriter& dest) const=0;
 		};
 	}
 

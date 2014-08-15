@@ -11,8 +11,9 @@ target[name[applicationstate.o] type[object]]
 #include "dataexporter.h"
 #include "ui_applicationstate.h"
 #include "modelsetup.h"
-#include <chunkio/bigchunk_reader.h>
-#include <chunkio/bigchunk_writer.h>
+#include "datareader_impl.h"
+#include "datawriter_impl.h"
+
 #include <herbs/thread/thread.h>
 #include <herbs/runnable/runnable.h>
 #include <herbs/filein/filein.h>
@@ -26,7 +27,7 @@ void Sim2d::ApplicationState::load(const Herbs::Path& filename
 	,Sim2d::UiApplicationState* ui_appstate)
 	{
 	Herbs::FileIn file_in(filename);
-	ChunkIO::BigchunkReader reader(file_in);
+	DataReaderImpl reader(file_in);
 	Herbs::Stringbase<char> header_name(8);
 	size_t status=0;
 	while(reader.headerRead(header_name))
@@ -101,7 +102,7 @@ void Sim2d::ApplicationState::load(const Herbs::Path& filename
 void Sim2d::ApplicationState::store(const Herbs::Path& filename)
 	{
 	Herbs::FileOut file_out(filename);
-	ChunkIO::BigchunkWriter writer(file_out);
+	DataWriterImpl writer(file_out);
 	writer.chunkIDWrite("SIM2DMET");
 	writer.chunkSizeWrite(0);
 	

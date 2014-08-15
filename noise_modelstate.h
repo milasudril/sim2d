@@ -24,8 +24,8 @@ namespace Sim2d
 				,unsigned int offset);
 			void destroy();
 			
-			bool stateGlobalLoad(ChunkIO::Reader& source);
-			bool stateGlobalStore(ChunkIO::Writer& dest) const;
+			bool stateGlobalLoad(DataReader& source);
+			bool stateGlobalStore(DataWriter& dest) const;
 			size_t stateGlobalSizeGet() const
 				{return sizeof(randgen);}
 			

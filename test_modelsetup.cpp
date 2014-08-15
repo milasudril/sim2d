@@ -3,8 +3,8 @@ target[name[test_modelsetup.o] type[object]]
 #endif
 
 #include "test_modelsetup.h"
-#include <chunkio/reader.h>
-#include <chunkio/writer.h>
+#include "datareader.h"
+#include "datawriter.h"
 #include <config/param_valueraw_info.h>
 
 const char_t* Sim2d::Test_ModelSetup::titleGet() const
@@ -47,12 +47,12 @@ void Sim2d::Test_ModelSetup::destroy()
 	{delete this;}
 
 	
-bool Sim2d::Test_ModelSetup::load(ChunkIO::Reader& source)
+bool Sim2d::Test_ModelSetup::load(DataReader& source)
 	{
 	return source.dataRead(&blob, chunkSizeGet())==chunkSizeGet();
 	}
 
-bool Sim2d::Test_ModelSetup::store(ChunkIO::Writer& dest) const
+bool Sim2d::Test_ModelSetup::store(DataWriter& dest) const
 	{
 	return dest.dataWrite(&blob, chunkSizeGet())==chunkSizeGet();
 	}

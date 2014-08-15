@@ -16,12 +16,6 @@ dependency[simulation.o]
 #include <herbs/pairsame/pairsame.h>
 #include <cstdint>
 
-namespace ChunkIO
-	{
-	class Reader;
-	class Writer;
-	}
-
 namespace Sim2d
 	{
 	class DatablockProcessor;
@@ -29,6 +23,9 @@ namespace Sim2d
 	class SimulationSetupBlob;
 	class UiSimulationView;
 	class ModelState;
+	
+	class DataReader;
+	class DataWriter;
 	
 	class Simulation:public Herbs::Runnable
 		{
@@ -52,8 +49,8 @@ namespace Sim2d
 			void pixelsUpload();
 			
 			size_t stateGlobalSizeGet() const;
-			void stateGlobalStore(ChunkIO::Writer& writer) const;
-			void stateGlobalLoad(ChunkIO::Reader& reader);
+			void stateGlobalStore(DataWriter& writer) const;
+			void stateGlobalLoad(DataReader& reader);
 			
 			size_t stateCellSizeGet() const
 				{
@@ -61,8 +58,8 @@ namespace Sim2d
 					*buffers.first.nRowsGet()
 					*buffers.second.nColsGet();
 				}
-			void stateCellStore(ChunkIO::Writer& writer) const;
-			void stateCellLoad(ChunkIO::Reader& reader);
+			void stateCellStore(DataWriter& writer) const;
+			void stateCellLoad(DataReader& reader);
 
 			~Simulation();
 		

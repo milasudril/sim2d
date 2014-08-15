@@ -7,15 +7,12 @@ target[name[modelstate.h] type[include]]
 
 #include <cstdint>
 
-namespace ChunkIO
-	{
-	class Reader;
-	class Writer;
-	}
 
 namespace Sim2d
 	{
 	class Bufferinfo;
+	class DataReader;
+	class DataWriter;
 	
 	class ModelState
 		{
@@ -33,8 +30,8 @@ namespace Sim2d
 			virtual ~ModelState(){}
 			
 			virtual size_t stateGlobalSizeGet() const=0;
-			virtual bool stateGlobalLoad(ChunkIO::Reader& source)=0;
-			virtual bool stateGlobalStore(ChunkIO::Writer& dest) const=0;
+			virtual bool stateGlobalLoad(DataReader& source)=0;
+			virtual bool stateGlobalStore(DataWriter& dest) const=0;
 		};
 	}
 

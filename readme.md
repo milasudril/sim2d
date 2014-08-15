@@ -4,10 +4,10 @@ This application provides a framework for multithreaded and visualized 2d simula
 
 Dependencies
 -----------------------------
- * The Herbs library from the Gabi project
- * The Configdlg library
- * The ImagIO library
- * The ChunkIO library
+ * gabi
+ * configdlg
+ * imagio
+ * bigchunk
 
 Compiling and Installing
 -----------------------------

@@ -9,14 +9,12 @@ dependency[simulationsetup.o]
 #include "simulationsetupblob.h"
 
 #include <config/paramdescriptor.h>
-namespace ChunkIO
-	{
-	class Writer;
-	class Reader;
-	}
 
 namespace Sim2d
 	{
+	class DataReader;
+	class DataWriter;
+	
 	struct SimulationSetup:public Config::Paramdescriptor
 		{
 		SimulationSetup();
@@ -25,8 +23,8 @@ namespace Sim2d
 		const char_t* titleGet() const;
 		Herbs::ListPacked paraminfoGet();
 		
-		void store(ChunkIO::Writer& dest);
-		void load(ChunkIO::Reader& source);
+		void store(DataWriter& dest);
+		void load(DataReader& source);
 		
 		size_t chunkSizeGet() const
 			{return sizeof(blob);}

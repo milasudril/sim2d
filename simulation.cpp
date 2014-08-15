@@ -9,8 +9,8 @@ target[name[simulation.o] type[object]]
 #include "modelstate.h"
 #include "ui_simulationview.h"
 
-#include <chunkio/reader.h>
-#include <chunkio/writer.h>
+#include "datareader.h"
+#include "datawriter.h"
 #include <herbs/exceptionmissing/exceptionmissing.h>
 #include <herbs/thread/thread.h>
 
@@ -68,7 +68,7 @@ size_t Sim2d::Simulation::stateGlobalSizeGet() const
 	return 0;
 	}
 	
-void Sim2d::Simulation::stateGlobalStore(ChunkIO::Writer& writer) const
+void Sim2d::Simulation::stateGlobalStore(DataWriter& writer) const
 	{
 	if(m_stop)
 		{
@@ -82,7 +82,7 @@ void Sim2d::Simulation::stateGlobalStore(ChunkIO::Writer& writer) const
 		}
 	}
 	
-void Sim2d::Simulation::stateGlobalLoad(ChunkIO::Reader& reader)
+void Sim2d::Simulation::stateGlobalLoad(DataReader& reader)
 	{
 	if(m_stop)
 		{
@@ -96,12 +96,12 @@ void Sim2d::Simulation::stateGlobalLoad(ChunkIO::Reader& reader)
 		}
 	}
 
-void Sim2d::Simulation::stateCellStore(ChunkIO::Writer& writer) const
+void Sim2d::Simulation::stateCellStore(DataWriter& writer) const
 	{
 	writer.dataWrite(buffers[framecounter%2].rowGet(0),stateCellSizeGet());
 	}
 
-void Sim2d::Simulation::stateCellLoad(ChunkIO::Reader& reader)
+void Sim2d::Simulation::stateCellLoad(DataReader& reader)
 	{
 	if(m_stop)
 		{

@@ -12,16 +12,12 @@ dependency[datablockprocessor.o]
 #include <herbs/runnable/runnable.h>
 #include <cstdint>
 
-namespace ChunkIO
-	{
-	class Reader;
-	class Writer;
-	}
-
 namespace Sim2d
 	{
 	class ModelState;
 	class Model;
+	class DataReader;
+	class DataWriter;
 		
 	class DatablockProcessor : public Herbs::Runnable
 		{
@@ -44,8 +40,8 @@ namespace Sim2d
 				{m_stop=1;}
 				
 			size_t stateGlobalSizeGet() const;
-			void stateGlobalStore(ChunkIO::Writer& writer) const;
-			void stateGlobalLoad(ChunkIO::Reader& reader);
+			void stateGlobalStore(DataWriter& writer) const;
+			void stateGlobalLoad(DataReader& reader);
 				
 			~DatablockProcessor();
 
